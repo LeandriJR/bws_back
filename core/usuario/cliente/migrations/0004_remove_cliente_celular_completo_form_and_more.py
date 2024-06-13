@@ -7,65 +7,65 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cliente', '0003_cliente_usr_delete_cliente_usr_edicao_and_more'),
+        ('app_cliente', '0003_cliente_usr_delete_cliente_usr_edicao_and_more'),
         ('core', '0002_endereco_usr_delete_endereco_usr_edicao_and_more'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='celular_completo_form',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='celular_numero',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='email_documentacao',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='email_financeiro',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='nm_documento_completo',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='nm_documento_primeiro',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='nm_documento_ultimo',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='nm_social_completo',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='nm_social_primeiro',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='nm_social_ultimo',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='passaporte',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='passaporte_form',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='telefone_completo_form',
         ),
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='telefone_numero',
         ),
         migrations.CreateModel(
@@ -96,8 +96,8 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AlterField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='endereco',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='endereco', to='cliente.endereco'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='endereco', to='app_cliente.endereco'),
         ),
     ]

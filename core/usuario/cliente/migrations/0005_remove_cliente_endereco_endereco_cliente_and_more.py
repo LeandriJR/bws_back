@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cliente', '0004_remove_cliente_celular_completo_form_and_more'),
+        ('app_cliente', '0004_remove_cliente_celular_completo_form_and_more'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='cliente',
+            model_name='app_cliente',
             name='endereco',
         ),
         migrations.AddField(
             model_name='endereco',
-            name='cliente',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='cliente', to='cliente.cliente'),
+            name='app_cliente',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='app_cliente', to='app_cliente.app_cliente'),
         ),
         migrations.AddField(
             model_name='endereco',
