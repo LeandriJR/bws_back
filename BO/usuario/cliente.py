@@ -42,9 +42,9 @@ class Cliente(SQLConexao):
             SELECT username FROM {self.schema_cliente}.user
             WHERE email = :email
         """,
-        parametros={'email': email},
-        is_values_list=True,
-        is_primeiro=True)
+                           parametros={'email': email},
+                           is_values_list=True,
+                           is_primeiro=True)
 
     def buscar_login_existente(self, email=None, cpf=None):
         return self.select(query=f"""
@@ -55,3 +55,40 @@ class Cliente(SQLConexao):
                            is_values_list=True,
                            is_primeiro=True)
 
+    def buscar_informacao(self, username=None):
+        return {
+            'nome_completo': self.buscar_nome_cliente(username=username),
+            'endereco': self.buscar_endereco_cliente(username=username)
+        }
+
+    def buscar_nome_cliente(self, username=None):
+        return self.select(query=f"""
+                SELECT initcap(nm_completo)
+                FROM {self.schema_cliente}.cliente
+                WHERE user_id = :cpf """
+            ,parametros={'cpf': username}
+            ,is_primeiro=True
+            ,is_values_list=True)
+
+    def buscar_endereco_cliente(self, username=None):
+        return self.select(query=f"""
+                        SELECT    ce.endereco_completo
+                                , ce.cep, ce.rua
+                                , ce.numero
+                                , ce.complemento
+                                , ce.bairro
+                                , ce.cidade
+                                , ce.ponto_referencia
+                                , ce.latitude
+                                , ce.longitude
+                                , pce.nm_descritivo as estado
+                                , pce.regiao_codigo as estado_sigla
+                                , ce.is_principal
+                        FROM {self.schema_cliente}.cliente_endereco ce
+                        INNER JOIN public.core_estado pce ON ce.estado_id = pce.estado
+                        inner join {self.schema_cliente}.cliente c on c.id = ce.cliente_id
+                        WHERE c.user_id  = :cliente_id
+                        ORDER BY ce.is_principal DESC, ce.dat_insercao
+                        """
+                    , parametros={'cliente_id': username}
+                    )

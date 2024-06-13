@@ -33,19 +33,13 @@ class Log(DatLog, UsrLog):
 
 class ContatoLog(models.Model):
 
-    celular_numero = models.CharField(max_length=50, null=True)
     celular_ddd = models.CharField(max_length=3, null=True)
     celular_completo = models.CharField(max_length=50, null=True)
-    celular_completo_form = models.CharField(max_length=50, null=True)
 
-    telefone_numero = models.CharField(max_length=50, null=True)
     telefone_ddd = models.CharField(max_length=3, null=True)
     telefone_completo = models.CharField(max_length=50, null=True)
-    telefone_completo_form = models.CharField(max_length=50, null=True)
 
     email = models.EmailField(max_length=200, null=True)
-    email_financeiro = models.EmailField(max_length=200, null=True)
-    email_documentacao = models.EmailField(max_length=200, null=True)
 
     class Meta(Log.Meta):
         abstract = True
@@ -57,22 +51,11 @@ class PessoaLog(ContatoLog):
     nm_primeiro = models.CharField(max_length=200, null=True)
     nm_ultimo = models.CharField(max_length=200, null=True)
 
-    nm_social_completo = models.CharField(max_length=200, null=True)
-    nm_social_primeiro = models.CharField(max_length=200, null=True)
-    nm_social_ultimo = models.CharField(max_length=200, null=True)
-
-    nm_documento_completo = models.CharField(max_length=200, null=True)
-    nm_documento_primeiro = models.CharField(max_length=200, null=True)
-    nm_documento_ultimo = models.CharField(max_length=200, null=True)
-
     cpf = models.BigIntegerField(null=True)
     cpf_form = models.CharField(max_length=20, null=True)
 
     rg = models.CharField(max_length=15, null=True)
     rg_form = models.CharField(max_length=15, null=True)
-
-    passaporte = models.CharField(max_length=200, null=True)
-    passaporte_form = models.CharField(max_length=200, null=True)
 
     dat_nasc = models.DateField(null=True)
 
@@ -83,18 +66,6 @@ class PessoaLog(ContatoLog):
 
     class Meta(Log.Meta):
         abstract = True
-
-
-class Tipo(Log):
-    codigo = models.CharField(max_length=200, null=True)
-    informacao = models.CharField(max_length=500, null=True)
-    tipo = models.CharField(max_length=200, null=True)
-    nome = models.CharField(max_length=200, null=True)
-    descricao = models.TextField(null=True)
-    ordem = models.IntegerField(null=True)
-
-    class Meta(Log.Meta):
-        db_table = "core_tipo"
 
 
 class EnderecoMeta(models.Model):
@@ -120,18 +91,11 @@ class EnderecoMeta(models.Model):
 class Estado(Log):
     estado = models.CharField(max_length=255, primary_key=True)
     nm_descritivo = models.CharField(max_length=255, null=True)
-    regiao_tipo = models.CharField(null=True, max_length=255, default='')
     regiao_codigo = models.CharField(null=True, max_length=200)
 
 
     class Meta:
         db_table = 'core_estado'
-
-
-class Endereco(EnderecoMeta, Log):
-
-    class Meta:
-        db_table = 'core_endereco'
 
 
 class PontoFuncao(Log):

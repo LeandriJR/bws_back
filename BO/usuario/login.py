@@ -4,6 +4,8 @@ import jwt
 from django.contrib.auth import authenticate, user_logged_in, login
 from django.db.models import F
 from rest_framework_jwt.utils import jwt_payload_handler
+
+import BO.usuario.cliente
 from bws_back import settings
 import core.usuario.models
 
@@ -24,7 +26,7 @@ class Login:
                 return {
                     'status': True,
                     'descricao': 'Sucesso na autenticação!',
-                    'sessao': {'descricao': 'ainda em desenvolvimento, daqui vira as configurações e tudo que usuario tem'},
+                    'sessao': BO.usuario.cliente.Cliente().buscar_informacao(username=user['user'].pk),
                     'token': user.get('token'),
                     'status_code': 200
                 }
@@ -42,7 +44,6 @@ class Login:
     def authenticate(self):
         try:
             self.user = self.verificar_senha_master()
-
             if not self.user:
                 return False, 'Nenhum usuario encontrado!', None
             response = {

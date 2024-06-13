@@ -18,5 +18,5 @@ Including another URLconf
 from django.urls import path, re_path, include
 import core.urls
 urlpatterns = [
-    re_path('core/', include(core.urls)),
+    re_path('core', include(core.urls)),
 ]

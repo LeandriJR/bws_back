@@ -2,13 +2,19 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-import core.models
+from core.models import Log, PessoaLog, EnderecoMeta
 
 
-class Cliente(core.models.Log, core.models.PessoaLog):
+class Cliente(Log, PessoaLog):
     user = models.OneToOneField('usuario.User', on_delete=models.DO_NOTHING, null=True)
-
-    endereco = models.ForeignKey('core.Endereco', on_delete=models.DO_NOTHING, null=True, related_name='endereco')
 
     class Meta:
         db_table = 'cliente'
+
+
+class Endereco(EnderecoMeta, Log):
+    cliente = models.ForeignKey('Cliente', on_delete=models.DO_NOTHING, null=True, related_name='cliente')
+    is_principal = models.BooleanField(null=True, default=True)
+
+    class Meta:
+        db_table = 'cliente_endereco'
