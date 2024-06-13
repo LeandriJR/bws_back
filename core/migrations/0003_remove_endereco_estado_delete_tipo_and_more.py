@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_cliente', '0004_remove_cliente_celular_completo_form_and_more'),
+        ('cliente', '0004_remove_cliente_celular_completo_form_and_more'),
         ('core', '0002_endereco_usr_delete_endereco_usr_edicao_and_more'),
     ]
 

@@ -20,7 +20,7 @@ class Cliente(SQLConexao):
         }
 
         self.insert(
-            nm_tabela='app_cliente',
+            nm_tabela='cliente',
             dict_coluna_valor=cliente,
             is_primeiro=False
 
@@ -64,7 +64,7 @@ class Cliente(SQLConexao):
     def buscar_nome_cliente(self, username=None):
         return self.select(query=f"""
                 SELECT initcap(nm_completo)
-                FROM {self.schema_cliente}.app_cliente
+                FROM {self.schema_cliente}.cliente
                 WHERE user_id = :cpf """
             ,parametros={'cpf': username}
             ,is_primeiro=True
@@ -86,7 +86,7 @@ class Cliente(SQLConexao):
                                 , ce.is_principal
                         FROM {self.schema_cliente}.cliente_endereco ce
                         INNER JOIN public.core_estado pce ON ce.estado_id = pce.estado
-                        inner join {self.schema_cliente}.app_cliente c on c.id = ce.cliente_id
+                        inner join {self.schema_cliente}.cliente c on c.id = ce.cliente_id
                         WHERE c.user_id  = :cliente_id
                         ORDER BY ce.is_principal DESC, ce.dat_insercao
                         """

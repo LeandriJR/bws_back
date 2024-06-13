@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('endereco', models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='endereco', to='core.endereco')),
             ],
             options={
-                'db_table': 'app_cliente',
+                'db_table': 'cliente',
             },
         ),
     ]
