@@ -58,7 +58,6 @@ class Cliente(SQLConexao):
     def buscar_informacao(self, username=None):
         return {
             'nome_completo': self.buscar_nome_cliente(username=username),
-            'endereco': self.buscar_endereco_cliente(username=username)
         }
 
     def buscar_nome_cliente(self, username=None):

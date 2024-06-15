@@ -1,3 +1,4 @@
+import http
 from typing import Optional
 
 import jwt
@@ -22,31 +23,36 @@ class Login:
         try:
             user = self.authenticate()
 
-            if user:
+            if user['status']:
                 return {
                     'status': True,
                     'descricao': 'Sucesso na autenticação!',
-                    'sessao': BO.usuario.cliente.Cliente().buscar_informacao(username=user['user'].pk),
-                    'token': user.get('token'),
-                    'status_code': 200
+                    'data': {
+                        'sessao': BO.usuario.cliente.Cliente().buscar_informacao(username=user['user'].pk),
+                        'token': user.get('token'),
+                    },
+                    'status_code': http.HTTPStatus.OK
                 }
 
             return {'status': False,
-                    'descricao':'Username ou senha Incorretos',
-                    'status_code': 406
+                    'descricao':'Email ou senha incorretos',
+                    'status_code': http.HTTPStatus.BAD_REQUEST
                     }
         except TypeError:
             return {'status': False,
                     'descricao':'Erro ao tentar fazer login',
-                    'status_code': 502
+                    'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR
                     }
 
     def authenticate(self):
         try:
             self.user = self.verificar_senha_master()
             if not self.user:
-                return False, 'Nenhum usuario encontrado!', None
+                return {
+                    'status': False,
+                }
             response = {
+                'status': True,
                 'token': self.create_token(request=self.request),
                 'user': self.user
             }

@@ -47,7 +47,8 @@ TENANT_APPS = ('restaurant',
                'core.configuracao',
                'core.usuario',
                'core.usuario.cliente',
-               'core.usuario.funcionario'
+               'core.usuario.funcionario',
+               'core.produto'
                )
 
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
