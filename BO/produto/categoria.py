@@ -11,7 +11,7 @@ class Categoria(SQLConexao):
         try:
             return {
                 'status': True,
-                'descricao': '',
+                'descricao': 'Sucesso ao buscar categoria!',
                 'data': {
                     'categorias': self.get_lista_categorias()
                 },

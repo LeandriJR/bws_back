@@ -13,7 +13,7 @@ class Register(SQLConexao):
             if username:
                 return {  'status': False,
                           'descricao': 'Email ou CPF de usuário já cadastrado!',
-                          'data': [],
+                          'data': {},
                           'status_code': 403
                   }
             core.usuario.models.User.objects.create_user(username=response['cpf'],
@@ -31,12 +31,12 @@ class Register(SQLConexao):
 
             return {'status': True,
                       'descricao': 'Registrado com sucesso!',
-                      'data': [],
+                      'data': {},
                       'status_code': 200
                   }
         except:
             return {'status': False,
                     'descricao': 'Erro ao tentar registrar usuario',
-                    'data': [],
+                    'data': {},
                     'status_code': 501
                     }
