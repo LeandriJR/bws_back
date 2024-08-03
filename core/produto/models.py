@@ -22,7 +22,7 @@ class Produto(Log):
     is_venda = models.BooleanField(null=True)
     tamanho = models.CharField(max_length=128, null=True)
     categoria = models.ForeignKey("Categoria", on_delete=models.DO_NOTHING, null=True)
-
+    ordem = models.IntegerField(null=True)
 
     class Meta:
         db_table = u'produtos'

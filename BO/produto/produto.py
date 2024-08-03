@@ -24,11 +24,12 @@ class Produto(SQLConexao):
                                     FROM {self.schema_cliente}.produtos p
                                     INNER JOIN {self.schema_cliente}.produto_categoria pc ON pc.id = p.categoria_id
                                     INNER JOIN {self.schema_cliente}.produto_preco pp ON p.id = pp.produto_id
-                                    INNER JOIN {self.schema_cliente}.produto_desconto pd ON pp.desconto_id = pd.id
-                                    INNER JOIN {self.schema_cliente}.produto_tipodesconto pt on pt.nome = pd.tipo_id 
+                                    LEFT JOIN {self.schema_cliente}.produto_desconto pd ON pp.desconto_id = pd.id
+                                    LEFT JOIN {self.schema_cliente}.produto_tipodesconto pt on pt.nome = pd.tipo_id 
                                     WHERE p.status = true
                                           AND categoria_id = :categoria_id
-                                          AND pd.status
+                                          AND (pd.status or pd.status is null)
+                                    ORDER BY p.ordem
                             """,
                             parametros={'categoria_id': categoria_id})
             return {
