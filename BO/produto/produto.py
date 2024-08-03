@@ -35,7 +35,7 @@ class Produto(SQLConexao):
             return {
                 'status': True,
                 'status_code': http.HTTPStatus.OK if produtos else http.HTTPStatus.NOT_FOUND,
-                'produtos': produtos,
+                'data': produtos if produtos else [],
                 'descricao': 'Sucesso ao buscar produtos' if produtos else 'Nenhum produto encontrado!'
             }
 
@@ -43,5 +43,6 @@ class Produto(SQLConexao):
             return {
                 'status': False,
                 'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR,
-                'descricao': "Erro ao buscar produtos"
+                'descricao': "Erro ao buscar produtos",
+                'data': []
             }
