@@ -35,7 +35,9 @@ class Produto(SQLConexao):
             return {
                 'status': True,
                 'status_code': http.HTTPStatus.OK if produtos else http.HTTPStatus.NOT_FOUND,
-                'data': produtos if produtos else [],
+                'data': {
+                            'produtos': produtos if produtos else []
+                         },
                 'descricao': 'Sucesso ao buscar produtos' if produtos else 'Nenhum produto encontrado!'
             }
 
