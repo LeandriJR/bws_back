@@ -34,7 +34,7 @@ class Produto(SQLConexao):
                             parametros={'categoria_id': categoria_id})
             return {
                 'status': True,
-                'status_code': http.HTTPStatus.OK if produtos else http.HTTPStatus.NO_CONTENT,
+                'status_code': http.HTTPStatus.OK,
                 'data': {
                             'produtos': produtos if produtos else []
                          },
