@@ -18,8 +18,8 @@ class Produto(SQLConexao):
                                             , pc.nome
                                             , pc.id 						as categoria_id
                                             , pc.nome 						as categoria
-                                            , pp.valor::numeric(16,2) 	  	as preco
-                                            , pd.valor_final::numeric(16,2) as preco_desconto 
+                                            , pp.valor::float	  	as preco
+                                            , pd.valor_final::float as preco_desconto 
                                             , pt.nome 		 				as tipo_desconto
                                     FROM {self.schema_cliente}.produtos p
                                     INNER JOIN {self.schema_cliente}.produto_categoria pc ON pc.id = p.categoria_id
