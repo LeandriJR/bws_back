@@ -29,7 +29,7 @@ class Carrinho(SQLConexao):
                            ),
                            '[]'::json
                        ) AS itens,
-                       sum(pp.valor) as preco_total
+                       sum(pp.valor * cci.quantidade)::float as preco_total
                 FROM develop.cliente_carrinho cc
                 left join develop.cliente_carrinhoitem cci on cci.carrinho_id = cc.id
                 LEFT JOIN develop.produtos p ON p.id = cci.produto_id
@@ -63,8 +63,9 @@ class Carrinho(SQLConexao):
                 from {self.schema_cliente}.cliente_carrinhoitem
                 where id = :item_id
             """,
-            parametros={'item_id': item_id},
-            is_values_list=True) or 0
+            parametros={'item_id': int(item_id)},
+            is_values_list=True,
+            is_primeiro=True) or 0
 
             if adicionar:
                 quantidade = int(quantidade) + 1
@@ -76,8 +77,8 @@ class Carrinho(SQLConexao):
                         filtro_where={'id': item_id})
 
             return {
-                'status': False,
-                'descricao': 'Erro ao alterar quantidade de itens',
+                'status': True,
+                'descricao': 'Sucesso ao alterar quantidade de itens',
                 'status_code': http.HTTPStatus.OK,
                 'data': [
                     {
