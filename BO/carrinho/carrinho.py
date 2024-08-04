@@ -15,10 +15,10 @@ class Carrinho(SQLConexao):
                            (
                                SELECT json_agg(
                                           json_build_object(
-                                              'id', cci.id,
+                                              'id', cci.id::bigint,
                                               'descricao', p.nome,
-                                              'preco', pp.valor,
-                                              'quantidade', cci.quantidade,
+                                              'preco', pp.valor::float,
+                                              'quantidade', cci.quantidade::int,
                                               'imagem', p.imagem
                                           )
                                       )
@@ -80,7 +80,9 @@ class Carrinho(SQLConexao):
                 'descricao': 'Erro ao alterar quantidade de itens',
                 'status_code': http.HTTPStatus.OK,
                 'data': [
-                    {'quantidade': quantidade}
+                    {
+                        'quantidade': quantidade
+                    }
                 ]
             }
         except:
