@@ -56,7 +56,7 @@ class Carrinho(SQLConexao):
                 'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR
             }
 
-    def alterar_itens_carrinho(self, item_id=None, adicionar=None):
+    def alterar_itens_carrinho(self, item_id=None, adicionar=None, cliente_id=6):
         try:
             quantidade = self.select(query=f"""
                 select quantidade
@@ -80,11 +80,10 @@ class Carrinho(SQLConexao):
                 'status': True,
                 'descricao': 'Sucesso ao alterar quantidade de itens',
                 'status_code': http.HTTPStatus.OK,
-                'data': [
-                    {
-                        'quantidade': quantidade
+                'data': {
+                        'carrinho': self.get_carrinho(cliente_id=cliente_id).get('data').get('carrinho')
                     }
-                ]
+
             }
         except:
             return {
