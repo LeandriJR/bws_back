@@ -37,12 +37,15 @@ class Carrinho(SQLConexao):
                 WHERE cliente_id = :cliente_id
                 group by 1
             """,
-            parametros={'cliente_id': cliente_id})
+            parametros={'cliente_id': cliente_id},
+            is_primeiro=True)
 
             return {
                 'status': True,
                 'descricao': 'Sucesso ao buscar carrinho' if carrinho else "Nenhum carrinho encontrado",
-                'data': carrinho if carrinho else [],
+                'data': {
+                    'carrinho': carrinho if carrinho else []
+                },
                 'status_code': http.HTTPStatus.OK
             }
         except:
@@ -51,4 +54,39 @@ class Carrinho(SQLConexao):
                 'descricao': 'Erro ao buscar carrinho',
                 'data': [],
                 'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR
+            }
+
+    def alterar_itens_carrinho(self, item_id=None, adicionar=None):
+        try:
+            quantidade = self.select(query=f"""
+                select quantidade
+                from {self.schema_cliente}.cliente_carrinhoitem
+                where id = :item_id
+            """,
+            parametros={'item_id': item_id},
+            is_values_list=True) or 0
+
+            if adicionar:
+                quantidade = int(quantidade) + 1
+            else:
+                quantidade = int(quantidade) - 1 if quantidade > 0 else 0
+
+            self.update(nm_tabela='cliente_carrinhoitem',
+                        dict_coluna_valor={'quantidade': quantidade},
+                        filtro_where={'id': item_id})
+
+            return {
+                'status': False,
+                'descricao': 'Erro ao alterar quantidade de itens',
+                'status_code': http.HTTPStatus.OK,
+                'data': [
+                    {'quantidade': quantidade}
+                ]
+            }
+        except:
+            return {
+                'status': False,
+                'descricao': 'Erro ao alterar quantidade de itens',
+                'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR,
+                'data': []
             }

@@ -13,6 +13,10 @@ class CarrinhoView(APIView):
         return JsonResponse(response, safe=False, status=response['status_code'])
 
     def post(self, request):
+        response = BO.carrinho.carrinho.Carrinho().alterar_itens_carrinho(
+            item_id=self.request.POST.get("item_id"),
+            adicionar=self.request.POST.get('adicionar')
+        )
         return JsonResponse({'status': True, 'descricao': 'A implementar', 'status_code': 200})
 
     def delete(self, request):
