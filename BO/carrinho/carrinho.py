@@ -15,6 +15,7 @@ class Carrinho(SQLConexao):
                            (
                                SELECT json_agg(
                                           json_build_object(
+                                              'id', cci.id,
                                               'descricao', p.nome,
                                               'preco', pp.valor,
                                               'quantidade', cci.quantidade,
