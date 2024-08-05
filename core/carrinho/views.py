@@ -15,7 +15,7 @@ class CarrinhoView(APIView):
     def post(self, request):
         response = BO.carrinho.carrinho.Carrinho().alterar_itens_carrinho(
             item_id=self.request.POST.get("item_id"),
-            adicionar=self.request.POST.get('adicionar'),
+            adicionar=True if self.request.POST.get('adicionar') == 'true' else False,
             cliente_id=6
         )
         return JsonResponse(response, safe=False, status=response['status_code'])
