@@ -34,7 +34,7 @@ class Carrinho(SQLConexao):
                 left join develop.cliente_carrinhoitem cci on cci.carrinho_id = cc.id
                 LEFT JOIN develop.produtos p ON p.id = cci.produto_id
                 LEFT JOIN develop.produto_preco pp ON pp.produto_id = p.id
-                WHERE cliente_id = :cliente_id
+                WHERE cliente_id = :cliente_id and cci.quantidade > 0
                 group by 1
             """,
             parametros={'cliente_id': cliente_id},
