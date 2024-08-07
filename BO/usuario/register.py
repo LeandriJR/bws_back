@@ -29,14 +29,16 @@ class Register(SQLConexao):
                 nm_ultimo=response['nm_ultimo']
             )
 
-            return {'status': True,
+            return {
+                      'status': True,
                       'descricao': 'Registrado com sucesso!',
-                      'data': {},
+                      'data': [],
                       'status_code': 200
                   }
         except:
-            return {'status': False,
+            return {
+                    'status': False,
                     'descricao': 'Erro ao tentar registrar usuario',
-                    'data': {},
+                    'data': [],
                     'status_code': 501
                     }
