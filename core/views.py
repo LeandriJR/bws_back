@@ -7,7 +7,7 @@ from core.mixin import JWTAuthMixin
 
 
 # Create your views here.
-class StatusAPIView(JWTAuthMixin, APIView):
+class StatusAPIView(APIView):
 
     def get(self, request):
         return JsonResponse({'message': 'API is running'}, safe=False, status=http.HTTPStatus.OK)
