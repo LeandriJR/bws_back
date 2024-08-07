@@ -56,6 +56,7 @@ TENANT_APPS = ('restaurant',
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 MIDDLEWARE = [
     'core.middleware.GlobalRequestMiddleware',
+    #'core.middleware.JWTAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django_tenants.middleware.main.TenantMainMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,6 +1,9 @@
+import jwt
+
+from bws_back import settings
 from bws_back.settings import DB_CONNECTIONS
 import threading
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 
 
 class SqlAlchemySessionMiddleware:
@@ -89,3 +92,23 @@ def get_schema_cliente():
     request = GlobalRequestStorage().get()
     return request.tenant.schema_name
 
+class JWTAuthenticationMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        token = request.headers.get('Authorization')
+        if token and token.startswith('Bearer '):
+            token = token.split(' ')[1]
+            try:
+                payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+                request.user_id = payload['user_id']
+                request.username = payload['username']
+                request.email = payload['email']
+            except:
+                return False
+        else:
+            return False
+
+        response = self.get_response(request)
+        return response

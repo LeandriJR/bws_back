@@ -63,6 +63,7 @@ class Login:
     def create_token(self, request):
         try:
             payload = jwt_payload_handler(self.user)
+            payload['user_id'] = self.user.cliente.id
             token = jwt.encode(payload, settings.SECRET_KEY)
             user_logged_in.send(sender=self.user.__class__,
                                 request=request, user=self.user)

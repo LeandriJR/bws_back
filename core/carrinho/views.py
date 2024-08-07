@@ -19,9 +19,6 @@ class AtualizarView(APIView):
         )
         return JsonResponse(response, safe=False, status=response['status_code'])
 
-    def delete(self, request):
-        return JsonResponse({'status': True, 'descricao': 'A implementar', 'status_code': 200})
-
 
 class AdicionarProdutoView(APIView):
 
