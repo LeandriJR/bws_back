@@ -24,21 +24,21 @@ def jwt_required(view_func):
                                 'status': False,
                                 'descricao': 'Sessão do usuario expirada!',
                                 'data': [],
-                                'status_code':401
+                                'status_code': 401
                 }, status=401)
             except jwt.InvalidTokenError:
                 return JsonResponse({
                                 'status': False,
                                 'descricao': 'Sessão do usuario invalida!',
                                 'data': [],
-                                'status_code':401
+                                'status_code': 401
                 }, status=401)
         else:
             return JsonResponse({
                                 'status': False,
                                 'descricao': 'Erro ao autenticar sessão do usuario!',
                                 'data': [],
-                                'status_code':401
+                                'status_code': 401
                 }, status=401)
 
         return view_func(request, *args, **kwargs)
