@@ -19,13 +19,27 @@ def jwt_required(view_func):
                     'is_active': True
                 }
                 request.user_logged = user
-                # Adicione outras informações do usuário aqui
             except jwt.ExpiredSignatureError:
-                return JsonResponse({'error': 'Token expired'}, status=401)
+                return JsonResponse({
+                                'status': False,
+                                'descricao': 'Sessão do usuario expirada!',
+                                'data': [],
+                                'status_code':401
+                }, status=401)
             except jwt.InvalidTokenError:
-                return JsonResponse({'error': 'Invalid token'}, status=401)
+                return JsonResponse({
+                                'status': False,
+                                'descricao': 'Sessão do usuario invalida!',
+                                'data': [],
+                                'status_code':401
+                }, status=401)
         else:
-            return JsonResponse({'error': 'Authorization header not found'}, status=401)
+            return JsonResponse({
+                                'status': False,
+                                'descricao': 'Erro ao autenticar sessão do usuario!',
+                                'data': [],
+                                'status_code':401
+                }, status=401)
 
         return view_func(request, *args, **kwargs)
     return _wrapped_view
