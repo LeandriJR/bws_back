@@ -38,19 +38,19 @@ class EnderecoView(JWTAuthMixin, APIView):
     def post(self, request):
         response = BO.usuario.cliente.Cliente().salvar_endereco_usuario(
             user_id=self.request.user_logged.get("user_id"),
-            endereco_id=self.request.POST.get('endereco_id'),
-            cep=self.request.POST.get("cep"),
-            rua=self.request.POST.get("rua"),
-            numero=self.request.POST.get("numero"),
-            complemento=self.request.POST.get("complemento"),
-            bairro=self.request.POST.get("bairro"),
-            cidade=self.request.POST.get("cidade"),
-            ponto_referencia=self.request.POST.get("ponto_referencia"),
-            latitude=self.request.POST.get("latitude"),
-            longitude=self.request.POST.get("longitude"),
-            estado_id=self.request.POST.get("estado_id"),
-            estado_sigla=self.request.POST.get("estado_sigla"),
-            is_principal=self.request.POST.get("is_principal")
+            endereco_id=self.request.data.get('endereco_id'),
+            cep=self.request.data.get("cep"),
+            rua=self.request.data.get("rua"),
+            numero=self.request.data.get("numero"),
+            complemento=self.request.data.get("complemento"),
+            bairro=self.request.data.get("bairro"),
+            cidade=self.request.data.get("cidade"),
+            ponto_referencia=self.request.data.get("ponto_referencia"),
+            latitude=self.request.data.get("latitude"),
+            longitude=self.request.data.get("longitude"),
+            estado_id=self.request.data.get("estado_id"),
+            estado_sigla=self.request.data.get("estado_sigla"),
+            is_principal=self.request.data.get("is_principal")
         )
 
         return JsonResponse(response, safe=False, status=response['status_code'])
@@ -60,7 +60,7 @@ class EnderecoDesativarView(JWTAuthMixin, APIView):
     def post(self, request):
         response = BO.usuario.cliente.Cliente().trocar_status_endereco_cliente(
             user_id=self.request.user_logged.get("user_id"),
-            endereco_id=self.request.POST.get('endereco_id')
+            endereco_id=self.request.data.get('endereco_id')
         )
 
         return JsonResponse(response, safe=False, status=response['status_code'])
