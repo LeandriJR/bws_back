@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-import datetime
+from datetime import timedelta
 import os
 from pathlib import Path
 import sqlalchemy as db
@@ -30,7 +30,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
 # Application definition
 
 SHARED_APPS = (
@@ -88,12 +92,6 @@ TEMPLATES = [
         },
     },
 ]
-
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=24),
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-}
 
 WSGI_APPLICATION = 'bws_back.wsgi.application'
 

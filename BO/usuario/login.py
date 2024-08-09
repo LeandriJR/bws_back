@@ -3,7 +3,7 @@ from typing import Optional
 
 import jwt
 from django.contrib.auth import authenticate, user_logged_in, login
-from django.db.models import F
+
 from rest_framework_jwt.utils import jwt_payload_handler
 
 import BO.usuario.cliente
@@ -35,12 +35,12 @@ class Login:
                 }
 
             return {'status': False,
-                    'descricao':'Email ou senha incorretos',
+                    'descricao': 'Email ou senha incorretos',
                     'status_code': http.HTTPStatus.BAD_REQUEST
                     }
         except TypeError:
             return {'status': False,
-                    'descricao':'Erro ao tentar fazer login',
+                    'descricao': 'Erro ao tentar fazer login',
                     'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR
                     }
 
@@ -68,7 +68,7 @@ class Login:
             user_logged_in.send(sender=self.user.__class__,
                                 request=request, user=self.user)
 
-            return token.decode('utf-8')
+            return token
         except ValueError:
             return None
 
