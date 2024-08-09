@@ -35,6 +35,17 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ]
 }
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Tempo de vida do token de acesso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Tempo de vida do token de refresh
+    'ROTATE_REFRESH_TOKENS': True,                   # Rotaciona o token de refresh ao usá-lo
+    'BLACKLIST_AFTER_ROTATION': True,                # Blacklist do refresh token antigo
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': 'your-signing-key',
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 # Application definition
 
 SHARED_APPS = (
