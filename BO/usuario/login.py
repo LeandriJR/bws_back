@@ -68,7 +68,7 @@ class Login:
             user_logged_in.send(sender=self.user.__class__,
                                 request=request, user=self.user)
 
-            return token
+            return token.decode('utf-8')
         except ValueError:
             return None
 
