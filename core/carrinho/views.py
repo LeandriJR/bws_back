@@ -21,7 +21,7 @@ class AtualizarView(JWTAuthMixin, APIView):
         return JsonResponse(response, safe=False, status=response['status_code'])
 
 
-class AdicionarProdutoView(APIView):
+class AdicionarProdutoView(JWTAuthMixin, APIView):
 
     def post(self, request):
         response = BO.carrinho.carrinho.Carrinho().adicionar_produto_carrinho(
