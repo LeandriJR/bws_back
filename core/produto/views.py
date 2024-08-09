@@ -6,14 +6,14 @@ import BO.produto.produto
 from core.mixin import JWTAuthMixin
 
 
-class CategoriaView(JWTAuthMixin, APIView):
+class CategoriaView(APIView):
     def get(self, request):
         response = BO.produto.categoria.Categoria().buscar_categorias_app()
 
         return JsonResponse(response, safe=False, status=response['status_code'])
 
 
-class ProdutoView(JWTAuthMixin, APIView):
+class ProdutoView(APIView):
     def get(self, request):
         response = BO.produto.produto.Produto().buscar_produtos_por_categoria(
             categoria_id=self.request.GET.get('categoria_id')
