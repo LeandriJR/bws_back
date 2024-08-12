@@ -29,3 +29,13 @@ class AdicionarProdutoView(JWTAuthMixin, APIView):
             cliente_id=self.request.user_logged.get('user_id')
         )
         return JsonResponse(response, safe=False, status=response['status_code'])
+
+
+class AdicionarEnderecoView(JWTAuthMixin, APIView):
+    def post(self, request):
+        response = BO.carrinho.carrinho.Carrinho().adicionar_endereco_carrinho(
+            endereco_id=self.request.data.get('endereco_id'),
+            carrinho_id=self.request.data.get('carrinho_id'),
+            cliente_id=self.request.user_logged.get('user_id')
+        )
+        return JsonResponse(response, safe=False, status=response['status_code'])

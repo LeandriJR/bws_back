@@ -8,6 +8,7 @@ class Carrinho(Log):
     session_key = models.CharField(max_length=200, null=True)
     cliente = models.OneToOneField(Cliente, on_delete=models.DO_NOTHING, null=True)
     origem = models.CharField(max_length=200, null=True)
+    endereco = models.ForeignKey(Endereco, on_delete=models.DO_NOTHING, null=True)
     #funcionario = models.ForeignKey('funcionario.Funcionario', on_delete=models.DO_NOTHING, null=True) para pedidos em mesa (futuro)
     #cupom = models.ForeignKey('cupom.Cupom', on_delete=models.DO_NOTHING, null=True) (futuro)
 

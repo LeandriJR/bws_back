@@ -130,3 +130,13 @@ class Carrinho(SQLConexao):
 
         return self.get_carrinho(cliente_id=cliente_id).get('data').get('carrinho')
 
+    @Response(desc_success="Sucesso ao adicionar endereco ao carrinho",
+              desc_error='Erro ao adicionar endereco ao carrinho',
+              lista_retornos=['carrinho'])
+    def adicionar_endereco_carrinho(self, endereco_id=None, carrinho_id=None, cliente_id=None):
+        self.update(nm_tabela='cliente_carrinho',
+                    filtro_where={'id', carrinho_id},
+                    dict_coluna_valor={'endereco_id': endereco_id})
+
+        return self.get_carrinho(cliente_id=cliente_id).get('data').get('carrinho')
+
