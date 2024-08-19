@@ -19,6 +19,7 @@ class Login:
         self.password = password
         self.user = None
 
+
     def login(self):
         try:
             user = self.authenticate()

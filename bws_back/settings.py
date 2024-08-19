@@ -28,8 +28,9 @@ SECRET_KEY = 'django-insecure-j=5))xznqn@)#_b)k3-r$0k&ozss5dwm!5ee-sk_9)dol-4s4p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ALLOW_CREDENTIALS = True
 ALLOWED_HOSTS = ['*']
-
+CORS_ORIGIN_ALLOW_ALL = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -55,6 +56,7 @@ SHARED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'core',
     'core.customers'
 )
@@ -73,6 +75,7 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 MIDDLEWARE = [
     'core.middleware.GlobalRequestMiddleware',
     #'core.middleware.JWTAuthenticationMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django_tenants.middleware.main.TenantMainMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
