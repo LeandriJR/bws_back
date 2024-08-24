@@ -9,49 +9,28 @@ from rest_framework_jwt.utils import jwt_payload_handler
 import BO.usuario.cliente
 from bws_back import settings
 import core.usuario.models
+from core.decorators import Response
 
 
 class Login:
-    def __init__(self, request=None, username=None, password=None):
+    def __init__(self, request=None, username=None, password=None, modulo=None):
         super().__init__()
         self.request = request
         self.username = username
         self.password = password
         self.user = None
 
-
+    @Response(desc_success="Sucesso ao Logar",
+              desc_error='Usuario ou senha invalidos',
+              lista_retornos=['user'])
     def login(self):
-        try:
-            user = self.authenticate()
-
-            if user['status']:
-                return {
-                    'status': True,
-                    'descricao': 'Sucesso na autenticação!',
-                    'data': {
-                        'sessao': BO.usuario.cliente.Cliente().buscar_informacao(username=user['user'].pk),
-                        'token': user.get('token'),
-                    },
-                    'status_code': http.HTTPStatus.OK
-                }
-
-            return {'status': False,
-                    'descricao': 'Email ou senha incorretos',
-                    'status_code': http.HTTPStatus.BAD_REQUEST
-                    }
-        except TypeError:
-            return {'status': False,
-                    'descricao': 'Erro ao tentar fazer login',
-                    'status_code': http.HTTPStatus.INTERNAL_SERVER_ERROR
-                    }
+        return self.authenticate()
 
     def authenticate(self):
         try:
             self.user = self.verificar_senha_master()
             if not self.user:
-                return {
-                    'status': False,
-                }
+                raise
             response = {
                 'status': True,
                 'token': self.create_token(request=self.request),

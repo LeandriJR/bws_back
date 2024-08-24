@@ -57,11 +57,15 @@ class Cliente(SQLConexao):
                            is_values_list=True,
                            is_primeiro=True)
 
-    def buscar_informacao(self, username=None):
-        return {
-            'nome_completo': self.buscar_nome_cliente(username=username),
-        }
+    @Response(desc_success="Sucesso ao fazer sessão do usuario",
+              desc_error='Erro ao fazer sessão do usuario',
+              lista_retornos=['token', 'nome_completo'])
+    def buscar_informacao(self, user=None):
+        return user['token'], self.buscar_nome_cliente(username=user['user'].username)
 
+    @Response(desc_success="Sucesso ao buscar nome do cliente",
+              desc_error="Erro ao buscar nome do cliente",
+              is_manter_retorno=True)
     def buscar_nome_cliente(self, username=None):
         return self.select(query=f"""
                 SELECT initcap(nm_completo)

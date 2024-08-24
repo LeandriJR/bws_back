@@ -16,7 +16,9 @@ from core.mixin import JWTAuthMixin
 class LoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         username = BO.usuario.cliente.Cliente().buscar_username_login(request.data['email'])
-        retorno = BO.usuario.login.Login(request=request, username=username, password=request.data['password']).login()
+        user = BO.usuario.login.Login(request=request, username=username, password=request.data['password']).login()
+
+        retorno = BO.usuario.cliente.Cliente().buscar_informacao(user['data']['user']),
 
         return JsonResponse(retorno, safe=False, status=retorno['status_code'])
 
